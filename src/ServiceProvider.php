@@ -40,5 +40,9 @@ class ServiceProvider extends BaseServiceProvider
         Builder::macro('orderBySubDesc', function ($query, $nullPosition = null) {
             return $this->orderBySub($query, 'desc', $nullPosition);
         });
+
+        Builder::macro('whereSub', function ($query, $value) {
+            return $this->whereRaw('('.$query->limit(1)->toSql().') = ?', $value);
+        });
     }
 }
